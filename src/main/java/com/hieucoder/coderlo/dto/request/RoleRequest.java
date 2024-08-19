@@ -1,10 +1,11 @@
 package com.hieucoder.coderlo.dto.request;
 
+import java.util.Set;
+
 import com.hieucoder.coderlo.entity.Permission;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor

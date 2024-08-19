@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
     UserService userService;
     UserMapper userMapper;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("")
     public ApiResponse<UserResponse> create(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
@@ -35,11 +36,13 @@ public class UserController {
                 .build();
     }
 
+    @PostAuthorize("returnObject.result.userName == authentication.name")
     @GetMapping("/self")
     public ApiResponse<UserResponse> findBySelf() {
         return ApiResponse.<UserResponse>builder().result(userService.myInfo()).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ApiResponse<UserResponse> update(@RequestBody @Valid UserUpdateRequest request, @PathVariable String id) {
         request.setId(id);
@@ -48,11 +51,13 @@ public class UserController {
         return userApiRespone;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("")
     public List<User> findAll() {
         return userService.findAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ApiResponse<UserResponse> findById(@PathVariable String id) {
         var user = userService.findById(id).orElseThrow(() -> new RuntimeException("Không tìn thấy id"));
@@ -61,7 +66,7 @@ public class UserController {
                 .build();
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ApiResponse<UserResponse> deleteById(@PathVariable String id) {
         User user = userService.findById(id).orElseThrow(() -> new RuntimeException("Không tìn thấy id"));

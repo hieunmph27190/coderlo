@@ -2,6 +2,7 @@ package com.hieucoder.coderlo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,7 +39,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = AuthenticationServiceException.class)
-    ResponseEntity<ApiResponse<Object>> handlingAuthenticationServiceException(AuthenticationServiceException exception) {
+    ResponseEntity<ApiResponse<Object>> handlingAuthenticationServiceException(
+            AuthenticationServiceException exception) {
         log.info(exception.toString());
         exception.printStackTrace();
         ApiResponse<Object> apiRespone = ApiResponse.<Object>builder()
@@ -48,11 +50,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiRespone);
     }
 
-
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<String> handlingAppExcaption(AppException exception) {
         ApiResponse<String> apiRespone = ApiResponse.<String>builder()
                 .code(exception.getErrorCode().getCode())
+                .message(exception.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
+    @ExceptionHandler(value = AccessDeniedException.class)
+    ResponseEntity<String> handlingAppExcaption(AccessDeniedException exception) {
+        ApiResponse<String> apiRespone = ApiResponse.<String>builder()
+                .code(ErrorCode.UNAUTHENTICATED.getCode())
                 .message(exception.getMessage())
                 .build();
         return ResponseEntity.badRequest().body(exception.getMessage());

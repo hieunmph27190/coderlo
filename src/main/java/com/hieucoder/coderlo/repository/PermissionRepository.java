@@ -1,12 +1,11 @@
 package com.hieucoder.coderlo.repository;
 
-import com.hieucoder.coderlo.entity.Permission;
-import com.hieucoder.coderlo.entity.Role;
-import com.hieucoder.coderlo.entity.User;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.hieucoder.coderlo.entity.Permission;
 
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, String> {

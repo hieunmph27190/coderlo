@@ -1,18 +1,18 @@
 package com.hieucoder.coderlo.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.hieucoder.coderlo.dto.request.PermissionRequest;
 import com.hieucoder.coderlo.dto.respone.PermissionResponse;
-import com.hieucoder.coderlo.dto.respone.RoleResponse;
 import com.hieucoder.coderlo.mapper.PermissionMapper;
-
 import com.hieucoder.coderlo.repository.PermissionRepository;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,9 @@ public class PermissionService {
     }
 
     public List<PermissionResponse> getAll() {
-        return permissionRepository.findAll().stream().map(permissionMapper::toPermissionResponse).toList();
+        return permissionRepository.findAll().stream()
+                .map(permissionMapper::toPermissionResponse)
+                .toList();
     }
 
     public void delete(String permissionId) {

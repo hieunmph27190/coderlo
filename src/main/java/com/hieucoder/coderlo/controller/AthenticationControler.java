@@ -14,6 +14,8 @@ import com.hieucoder.coderlo.dto.request.RefreshRequest;
 import com.hieucoder.coderlo.dto.respone.ApiResponse;
 import com.hieucoder.coderlo.dto.respone.AuthenticationResponse;
 import com.hieucoder.coderlo.dto.respone.IntrospectResponse;
+import com.hieucoder.coderlo.exception.AppException;
+import com.hieucoder.coderlo.exception.ErrorCode;
 import com.hieucoder.coderlo.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 
@@ -35,22 +37,33 @@ public class AthenticationControler {
     }
 
     @PostMapping("/introspect")
-    ApiResponse<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request)
-            throws ParseException, JOSEException {
+    ApiResponse<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request) {
         var result = authenticationService.introspect(request);
         return ApiResponse.<IntrospectResponse>builder().result(result).build();
     }
 
     @PostMapping("/refresh")
-    ApiResponse<AuthenticationResponse> authenticate(@RequestBody RefreshRequest request)
-            throws ParseException, JOSEException {
-        var result = authenticationService.refreshToken(request);
+    ApiResponse<AuthenticationResponse> authenticate(@RequestBody RefreshRequest request) {
+        AuthenticationResponse result = null;
+        try {
+            result = authenticationService.refreshToken(request);
+        } catch (ParseException | JOSEException e) {
+            throw new AppException(ErrorCode.TOKEN_INVALID);
+        }
         return ApiResponse.<AuthenticationResponse>builder().result(result).build();
     }
 
     @PostMapping("/logout")
-    ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
-        authenticationService.logout(request);
-        return ApiResponse.<Void>builder().build();
+    ApiResponse<Boolean> logout(@RequestBody LogoutRequest request) {
+        Boolean result = authenticationService.logout(request);
+        return ApiResponse.<Boolean>builder().result(result).build();
+    }
+
+    @PostMapping("/logout_all_token")
+    ApiResponse<String> logoutAll(@RequestBody LogoutRequest request) {
+        Integer result = authenticationService.logoutAll(request);
+        return ApiResponse.<String>builder()
+                .result("Logout " + result + " token")
+                .build();
     }
 }

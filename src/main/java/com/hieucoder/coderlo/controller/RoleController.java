@@ -30,6 +30,7 @@ public class RoleController {
                 .result(roleService.create(request))
                 .build();
     }
+
     @PutMapping
     ApiResponse<RoleResponse> update(@RequestBody RoleRequest request) {
         return ApiResponse.<RoleResponse>builder()

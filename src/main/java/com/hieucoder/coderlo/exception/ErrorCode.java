@@ -16,7 +16,7 @@ public enum ErrorCode {
     UNAUTHENTICATED(1006, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1007, "UNAUTHORIZEDn", HttpStatus.FORBIDDEN),
     INVALID_DOB(1008, "INVALID_DOB", HttpStatus.BAD_REQUEST),
-    ;
+    TOKEN_INVALID(2000, "TOKEN_INVALID", HttpStatus.UNAUTHORIZED);
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
         this.code = code;

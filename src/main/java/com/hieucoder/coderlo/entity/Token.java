@@ -16,12 +16,16 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class InvalidatedToken {
+public class Token {
     @Id
     String id;
+
+    String userName;
 
     @Column(columnDefinition = "TEXT")
     String token;
 
     Date expiryTime;
+
+    Integer status;
 }

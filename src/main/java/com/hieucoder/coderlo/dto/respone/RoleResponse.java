@@ -1,11 +1,11 @@
 package com.hieucoder.coderlo.dto.respone;
 
+import java.util.Set;
+
 import com.hieucoder.coderlo.entity.Permission;
-import jakarta.persistence.ManyToMany;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor

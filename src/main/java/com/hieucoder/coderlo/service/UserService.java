@@ -1,6 +1,5 @@
 package com.hieucoder.coderlo.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,11 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hieucoder.coderlo.constant.PredefinedRole;
 import com.hieucoder.coderlo.dto.request.UserCreationRequest;
 import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
 import com.hieucoder.coderlo.dto.respone.UserResponse;
-import com.hieucoder.coderlo.entity.Role;
 import com.hieucoder.coderlo.entity.User;
 import com.hieucoder.coderlo.exception.AppException;
 import com.hieucoder.coderlo.exception.ErrorCode;

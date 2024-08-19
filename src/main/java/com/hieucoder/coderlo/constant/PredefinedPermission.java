@@ -4,10 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum PredefinedPermission {
-    EDIT("EDIT","Chỉnh sửa dữ liệu"),
-    VIEW("VIEW","Xem dữ liệu")
-
-    ;
+    EDIT("EDIT", "Chỉnh sửa dữ liệu"),
+    VIEW("VIEW", "Xem dữ liệu");
 
     PredefinedPermission(String name, String description) {
         this.name = name;
@@ -16,5 +14,4 @@ public enum PredefinedPermission {
 
     private final String name;
     private final String description;
-
 }

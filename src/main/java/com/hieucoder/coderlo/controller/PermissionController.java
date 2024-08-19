@@ -1,20 +1,19 @@
 package com.hieucoder.coderlo.controller;
 
+import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import com.hieucoder.coderlo.dto.request.PermissionRequest;
-import com.hieucoder.coderlo.dto.request.RoleRequest;
 import com.hieucoder.coderlo.dto.respone.ApiResponse;
 import com.hieucoder.coderlo.dto.respone.PermissionResponse;
-import com.hieucoder.coderlo.dto.respone.RoleResponse;
 import com.hieucoder.coderlo.service.PermissionService;
-import com.hieucoder.coderlo.service.RoleService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/permissions")

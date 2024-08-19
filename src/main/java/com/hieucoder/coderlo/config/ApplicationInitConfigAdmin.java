@@ -3,18 +3,18 @@ package com.hieucoder.coderlo.config;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import com.hieucoder.coderlo.constant.PredefinedPermission;
-import com.hieucoder.coderlo.entity.Permission;
-import com.hieucoder.coderlo.repository.PermissionRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.hieucoder.coderlo.constant.PredefinedPermission;
 import com.hieucoder.coderlo.constant.PredefinedRole;
+import com.hieucoder.coderlo.entity.Permission;
 import com.hieucoder.coderlo.entity.Role;
 import com.hieucoder.coderlo.entity.User;
+import com.hieucoder.coderlo.repository.PermissionRepository;
 import com.hieucoder.coderlo.repository.RoleRepository;
 import com.hieucoder.coderlo.repository.UserRepository;
 
@@ -43,21 +43,19 @@ public class ApplicationInitConfigAdmin {
             prefix = "spring",
             value = "datasource.driver-class-name",
             havingValue = "com.mysql.cj.jdbc.Driver")
-    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository, PermissionRepository permissionRepository) {
+    ApplicationRunner applicationRunner(
+            UserRepository userRepository, RoleRepository roleRepository, PermissionRepository permissionRepository) {
         log.info("Initializing application.....");
         return args -> {
             if (userRepository.findByUserName(ADMIN_USER_NAME).isEmpty()) {
 
                 PredefinedPermission[] allPermissions = PredefinedPermission.values();
-                Arrays.stream(allPermissions).forEach(
-                        (permission)->{
-                            permissionRepository.save(Permission.builder()
-                                    .name(permission.getName())
-                                    .description(permission.getDescription())
-                                    .build());
-                        }
-                );
-
+                Arrays.stream(allPermissions).forEach((permission) -> {
+                    permissionRepository.save(Permission.builder()
+                            .name(permission.getName())
+                            .description(permission.getDescription())
+                            .build());
+                });
 
                 roleRepository.save(Role.builder()
                         .name(PredefinedRole.USER_ROLE)
