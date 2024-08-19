@@ -1,0 +1,72 @@
+package com.hieucoder.coderlo.controller;
+
+import java.util.List;
+
+import jakarta.validation.Valid;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import com.hieucoder.coderlo.dto.request.UserCreationRequest;
+import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
+import com.hieucoder.coderlo.dto.respone.ApiResponse;
+import com.hieucoder.coderlo.dto.respone.UserResponse;
+import com.hieucoder.coderlo.entity.User;
+import com.hieucoder.coderlo.mapper.UserMapper;
+import com.hieucoder.coderlo.service.UserService;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RestController
+@RequestMapping("/users")
+public class UserController {
+    UserService userService;
+    UserMapper userMapper;
+
+    @PostMapping("")
+    public ApiResponse<UserResponse> create(@RequestBody @Valid UserCreationRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userMapper.toUserResponse(userService.createRequest(request)))
+                .build();
+    }
+
+    @GetMapping("/self")
+    public ApiResponse<UserResponse> findBySelf() {
+        return ApiResponse.<UserResponse>builder().result(userService.myInfo()).build();
+    }
+
+    @PutMapping("/{id}")
+    public ApiResponse<UserResponse> update(@RequestBody @Valid UserUpdateRequest request, @PathVariable String id) {
+        request.setId(id);
+        ApiResponse<UserResponse> userApiRespone = new ApiResponse<>();
+        userApiRespone.setResult(userMapper.toUserResponse(userService.update(request)));
+        return userApiRespone;
+    }
+
+    @GetMapping("")
+    public List<User> findAll() {
+        return userService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<UserResponse> findById(@PathVariable String id) {
+        var user = userService.findById(id).orElseThrow(() -> new RuntimeException("Không tìn thấy id"));
+        return ApiResponse.<UserResponse>builder()
+                .result(userMapper.toUserResponse(user))
+                .build();
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/{id}")
+    public ApiResponse<UserResponse> deleteById(@PathVariable String id) {
+        User user = userService.findById(id).orElseThrow(() -> new RuntimeException("Không tìn thấy id"));
+        userService.deleteById(user.getId());
+        return ApiResponse.<UserResponse>builder()
+                .result(userMapper.toUserResponse(user))
+                .build();
+    }
+}
