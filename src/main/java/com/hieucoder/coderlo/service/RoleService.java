@@ -27,6 +27,11 @@ public class RoleService {
         role = roleRepository.save(role);
         return roleMapper.toRoleResponse(role);
     }
+    public RoleResponse update(RoleRequest request) {
+        var role = roleMapper.toRole(request);
+        role = roleRepository.save(role);
+        return roleMapper.toRoleResponse(role);
+    }
 
     public List<RoleResponse> getAll() {
         return roleRepository.findAll().stream().map(roleMapper::toRoleResponse).toList();

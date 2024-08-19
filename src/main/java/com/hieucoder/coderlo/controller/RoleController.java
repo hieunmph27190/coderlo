@@ -2,6 +2,7 @@ package com.hieucoder.coderlo.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.hieucoder.coderlo.dto.request.RoleRequest;
@@ -19,11 +20,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@PreAuthorize("hasRole('ADMIN')")
 public class RoleController {
     RoleService roleService;
 
     @PostMapping
     ApiResponse<RoleResponse> create(@RequestBody RoleRequest request) {
+        return ApiResponse.<RoleResponse>builder()
+                .result(roleService.create(request))
+                .build();
+    }
+    @PutMapping
+    ApiResponse<RoleResponse> update(@RequestBody RoleRequest request) {
         return ApiResponse.<RoleResponse>builder()
                 .result(roleService.create(request))
                 .build();

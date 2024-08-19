@@ -1,7 +1,11 @@
 package com.hieucoder.coderlo.config;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
+import com.hieucoder.coderlo.constant.PredefinedPermission;
+import com.hieucoder.coderlo.entity.Permission;
+import com.hieucoder.coderlo.repository.PermissionRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -39,10 +43,22 @@ public class ApplicationInitConfigAdmin {
             prefix = "spring",
             value = "datasource.driver-class-name",
             havingValue = "com.mysql.cj.jdbc.Driver")
-    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository) {
+    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository, PermissionRepository permissionRepository) {
         log.info("Initializing application.....");
         return args -> {
             if (userRepository.findByUserName(ADMIN_USER_NAME).isEmpty()) {
+
+                PredefinedPermission[] allPermissions = PredefinedPermission.values();
+                Arrays.stream(allPermissions).forEach(
+                        (permission)->{
+                            permissionRepository.save(Permission.builder()
+                                    .name(permission.getName())
+                                    .description(permission.getDescription())
+                                    .build());
+                        }
+                );
+
+
                 roleRepository.save(Role.builder()
                         .name(PredefinedRole.USER_ROLE)
                         .description("User role")
@@ -59,6 +75,7 @@ public class ApplicationInitConfigAdmin {
                 User user = User.builder()
                         .userName(ADMIN_USER_NAME)
                         .password(passwordEncoder.encode(ADMIN_PASSWORD))
+                        .status(1)
                         .roles(roles)
                         .build();
 

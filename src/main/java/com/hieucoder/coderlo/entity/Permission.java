@@ -1,11 +1,9 @@
 package com.hieucoder.coderlo.entity;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -13,12 +11,8 @@ import java.util.Set;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Role {
+public class Permission {
     @Id
     String name;
-
     String description;
-
-    @ManyToMany
-    Set<Permission> permissions;
 }

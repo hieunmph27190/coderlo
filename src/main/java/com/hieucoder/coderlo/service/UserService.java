@@ -42,11 +42,6 @@ public class UserService {
         if (userRepository.existsByUserName(request.getUserName())) throw new AppException(ErrorCode.USER_EXISTED);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        var roles = new HashSet<Role>();
-        roles.add(roleRepository
-                .findById(PredefinedRole.USER_ROLE)
-                .orElseThrow(() -> new RuntimeException("Role user chưa được tạo")));
-        user.setRoles(roles);
         return userRepository.save(user);
     }
 

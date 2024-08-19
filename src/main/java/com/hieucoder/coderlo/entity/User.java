@@ -24,4 +24,6 @@ public class User {
 
     @ManyToMany
     Set<Role> roles;
+
+    Integer status = 1 ;
 }

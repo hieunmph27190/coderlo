@@ -1,7 +1,10 @@
 package com.hieucoder.coderlo.dto.request;
 
+import com.hieucoder.coderlo.entity.Permission;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -11,4 +14,5 @@ import lombok.experimental.FieldDefaults;
 public class RoleRequest {
     String name;
     String description;
+    Set<Permission> permissions;
 }

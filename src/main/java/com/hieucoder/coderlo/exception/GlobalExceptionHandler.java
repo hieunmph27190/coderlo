@@ -2,6 +2,7 @@ package com.hieucoder.coderlo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,6 +36,18 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.badRequest().body(apiRespone);
     }
+
+    @ExceptionHandler(value = AuthenticationServiceException.class)
+    ResponseEntity<ApiResponse<Object>> handlingAuthenticationServiceException(AuthenticationServiceException exception) {
+        log.info(exception.toString());
+        exception.printStackTrace();
+        ApiResponse<Object> apiRespone = ApiResponse.<Object>builder()
+                .code(ErrorCode.UNAUTHENTICATED.getCode())
+                .message(ErrorCode.UNAUTHENTICATED.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(apiRespone);
+    }
+
 
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<String> handlingAppExcaption(AppException exception) {

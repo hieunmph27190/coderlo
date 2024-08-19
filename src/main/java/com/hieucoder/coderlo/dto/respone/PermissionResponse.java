@@ -1,24 +1,14 @@
-package com.hieucoder.coderlo.entity;
-
-import jakarta.persistence.*;
+package com.hieucoder.coderlo.dto.respone;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
-public class Role {
-    @Id
+public class PermissionResponse {
     String name;
-
     String description;
-
-    @ManyToMany
-    Set<Permission> permissions;
 }
