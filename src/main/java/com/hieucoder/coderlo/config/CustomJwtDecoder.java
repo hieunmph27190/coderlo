@@ -1,6 +1,5 @@
 package com.hieucoder.coderlo.config;
 
-import java.text.ParseException;
 import java.util.Objects;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +15,6 @@ import com.hieucoder.coderlo.dto.request.IntrospectRequest;
 import com.hieucoder.coderlo.exception.AppException;
 import com.hieucoder.coderlo.exception.ErrorCode;
 import com.hieucoder.coderlo.service.AuthenticationService;
-import com.nimbusds.jose.JOSEException;
 
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
@@ -30,15 +27,12 @@ public class CustomJwtDecoder implements JwtDecoder {
     private NimbusJwtDecoder nimbusJwtDecoder = null;
 
     @Override
-    public Jwt decode(String token) throws JwtException {
-        try {
-            var response = authenticationService.introspect(
-                    IntrospectRequest.builder().token(token).build());
+    public Jwt decode(String token) {
 
-            if (!response.isValid()) throw new AppException(ErrorCode.TOKEN_INVALID);
-        } catch (JOSEException | ParseException e) {
-            throw new JwtException(e.getMessage());
-        }
+        var response = authenticationService.introspect(
+                IntrospectRequest.builder().token(token).build());
+
+        if (!response.isValid()) throw new AppException(ErrorCode.TOKEN_INVALID);
 
         if (Objects.isNull(nimbusJwtDecoder)) {
             SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
