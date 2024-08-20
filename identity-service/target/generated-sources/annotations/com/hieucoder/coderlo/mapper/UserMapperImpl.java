@@ -1,6 +1,7 @@
 package com.hieucoder.coderlo.mapper;
 
 import com.hieucoder.coderlo.dto.request.UserCreationRequest;
+import com.hieucoder.coderlo.dto.request.UserProfileCreationRequest;
 import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
 import com.hieucoder.coderlo.dto.respone.UserResponse;
 import com.hieucoder.coderlo.entity.Role;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class UserMapperImpl implements UserMapper {
 
     @Override
-    public User toUser(UserCreationRequest userCreationRequest) {
+    public User fromUserCreationRequest(UserCreationRequest userCreationRequest) {
         if ( userCreationRequest == null ) {
             return null;
         }
@@ -51,6 +52,32 @@ public class UserMapperImpl implements UserMapper {
         }
 
         return userResponse;
+    }
+
+    @Override
+    public UserProfileCreationRequest toUserProfileCreationRequest(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserProfileCreationRequest.UserProfileCreationRequestBuilder userProfileCreationRequest = UserProfileCreationRequest.builder();
+
+        return userProfileCreationRequest.build();
+    }
+
+    @Override
+    public UserProfileCreationRequest toUserProfileCreationRequest(UserCreationRequest user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserProfileCreationRequest.UserProfileCreationRequestBuilder userProfileCreationRequest = UserProfileCreationRequest.builder();
+
+        userProfileCreationRequest.name( user.getName() );
+        userProfileCreationRequest.birthday( user.getBirthday() );
+        userProfileCreationRequest.email( user.getEmail() );
+
+        return userProfileCreationRequest.build();
     }
 
     @Override

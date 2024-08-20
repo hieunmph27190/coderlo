@@ -1,5 +1,6 @@
 package com.hieucoder.coderlo.dto.request;
 
+import java.util.Date;
 import java.util.Set;
 
 import jakarta.validation.constraints.Size;
@@ -24,4 +25,11 @@ public class UserCreationRequest {
     String password;
 
     Set<Role> roles;
+
+    String name;
+
+    Date birthday;
+
+    String email;
+
 }

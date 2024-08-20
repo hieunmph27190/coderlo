@@ -1,5 +1,6 @@
 package com.hieucoder.coderlo.dto.respone;
 
+import java.util.Date;
 import java.util.Set;
 
 import com.hieucoder.coderlo.entity.Role;
@@ -18,4 +19,10 @@ public class UserResponse {
     String id;
     String userName;
     Set<Role> roles;
+
+    String name;
+
+    Date birthday;
+
+    String email;
 }

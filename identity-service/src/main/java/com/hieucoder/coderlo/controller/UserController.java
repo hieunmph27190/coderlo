@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping("")
     public ApiResponse<UserResponse> create(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
-                .result(userMapper.toUserResponse(userService.createRequest(request)))
+                .result(userService.createRequest(request))
                 .build();
     }
 
