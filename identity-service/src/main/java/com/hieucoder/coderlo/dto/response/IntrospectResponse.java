@@ -1,4 +1,4 @@
-package com.hieucoder.coderlo.dto.respone;
+package com.hieucoder.coderlo.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
-    Boolean authenticated;
-    String token;
+public class IntrospectResponse {
+    boolean valid;
 }

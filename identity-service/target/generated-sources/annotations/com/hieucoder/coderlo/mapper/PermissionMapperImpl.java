@@ -1,7 +1,7 @@
 package com.hieucoder.coderlo.mapper;
 
 import com.hieucoder.coderlo.dto.request.PermissionRequest;
-import com.hieucoder.coderlo.dto.respone.PermissionResponse;
+import com.hieucoder.coderlo.dto.response.PermissionResponse;
 import com.hieucoder.coderlo.entity.Permission;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.hieucoder.coderlo.repository.httpclient;
 
 import com.hieucoder.coderlo.dto.request.UserProfileCreationRequest;
-import com.hieucoder.coderlo.dto.respone.UserProfileResponse;
+import com.hieucoder.coderlo.dto.response.UserProfileResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

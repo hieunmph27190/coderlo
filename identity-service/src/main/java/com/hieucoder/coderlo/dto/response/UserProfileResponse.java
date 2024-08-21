@@ -1,4 +1,4 @@
-package com.hieucoder.coderlo.dto.respone;
+package com.hieucoder.coderlo.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

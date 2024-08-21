@@ -1,7 +1,7 @@
 package com.hieucoder.coderlo.mapper;
 
-import com.hieucoder.coderlo.dto.respone.UserProfileResponse;
-import com.hieucoder.coderlo.dto.respone.UserResponse;
+import com.hieucoder.coderlo.dto.response.UserProfileResponse;
+import com.hieucoder.coderlo.dto.response.UserResponse;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 

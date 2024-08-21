@@ -1,10 +1,13 @@
 package com.hieucoder.coderlo.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.hieucoder.coderlo.dto.request.UserProfileCreationRequest;
-import com.hieucoder.coderlo.dto.respone.UserProfileResponse;
+import com.hieucoder.coderlo.dto.response.UserProfileResponse;
+import com.hieucoder.coderlo.entity.Role;
 import com.hieucoder.coderlo.mapper.UserProfileMapper;
 import com.hieucoder.coderlo.repository.httpclient.UserProfileCliient;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.hieucoder.coderlo.dto.request.UserCreationRequest;
 import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
-import com.hieucoder.coderlo.dto.respone.UserResponse;
+import com.hieucoder.coderlo.dto.response.UserResponse;
 import com.hieucoder.coderlo.entity.User;
 import com.hieucoder.coderlo.exception.AppException;
 import com.hieucoder.coderlo.exception.ErrorCode;
@@ -37,6 +40,24 @@ public class UserService {
     UserRepository userRepository;
     UserProfileCliient userProfileCliient;
     UserProfileMapper userProfileMapper;
+
+    public UserResponse registration(UserCreationRequest request) {
+        User user = userMapper.fromUserCreationRequest(request);
+        if (userRepository.existsByUserName(request.getUserName())) throw new AppException(ErrorCode.USER_EXISTED);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.builder().name("USER").build());
+        user.setRoles(roles);
+        User userSaved = userRepository.save(user);
+        UserProfileCreationRequest userProfileCreationRequest = userMapper.toUserProfileCreationRequest(request);
+        userProfileCreationRequest.setUserId(userSaved.getId());
+        UserProfileResponse userProfileResponse = userProfileCliient.createUserProfile(userProfileCreationRequest);
+
+        UserResponse userResponse = userMapper.toUserResponse(userSaved);
+        userProfileMapper.update(userResponse,userProfileResponse);
+        return userResponse;
+    }
 
     public UserResponse createRequest(UserCreationRequest request) {
         User user = userMapper.fromUserCreationRequest(request);

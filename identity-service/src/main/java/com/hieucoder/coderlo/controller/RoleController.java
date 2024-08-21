@@ -6,8 +6,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.hieucoder.coderlo.dto.request.RoleRequest;
-import com.hieucoder.coderlo.dto.respone.ApiResponse;
-import com.hieucoder.coderlo.dto.respone.RoleResponse;
+import com.hieucoder.coderlo.dto.response.ApiResponse;
+import com.hieucoder.coderlo.dto.response.RoleResponse;
 import com.hieucoder.coderlo.service.RoleService;
 
 import lombok.AccessLevel;

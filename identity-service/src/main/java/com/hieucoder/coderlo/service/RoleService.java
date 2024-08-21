@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hieucoder.coderlo.dto.request.RoleRequest;
-import com.hieucoder.coderlo.dto.respone.RoleResponse;
+import com.hieucoder.coderlo.dto.response.RoleResponse;
 import com.hieucoder.coderlo.mapper.RoleMapper;
 import com.hieucoder.coderlo.repository.RoleRepository;
 

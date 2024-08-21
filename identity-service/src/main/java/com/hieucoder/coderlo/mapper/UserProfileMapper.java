@@ -1,13 +1,8 @@
 package com.hieucoder.coderlo.mapper;
 
-import com.hieucoder.coderlo.dto.request.UserCreationRequest;
-import com.hieucoder.coderlo.dto.request.UserProfileCreationRequest;
-import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
-import com.hieucoder.coderlo.dto.respone.UserProfileResponse;
-import com.hieucoder.coderlo.dto.respone.UserResponse;
-import com.hieucoder.coderlo.entity.User;
+import com.hieucoder.coderlo.dto.response.UserProfileResponse;
+import com.hieucoder.coderlo.dto.response.UserResponse;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")

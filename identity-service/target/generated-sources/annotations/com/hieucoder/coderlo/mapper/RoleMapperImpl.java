@@ -1,7 +1,7 @@
 package com.hieucoder.coderlo.mapper;
 
 import com.hieucoder.coderlo.dto.request.RoleRequest;
-import com.hieucoder.coderlo.dto.respone.RoleResponse;
+import com.hieucoder.coderlo.dto.response.RoleResponse;
 import com.hieucoder.coderlo.entity.Role;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;

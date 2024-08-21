@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hieucoder.coderlo.dto.request.PermissionRequest;
-import com.hieucoder.coderlo.dto.respone.PermissionResponse;
+import com.hieucoder.coderlo.dto.response.PermissionResponse;
 import com.hieucoder.coderlo.mapper.PermissionMapper;
 import com.hieucoder.coderlo.repository.PermissionRepository;
 

@@ -6,8 +6,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.hieucoder.coderlo.dto.request.PermissionRequest;
-import com.hieucoder.coderlo.dto.respone.ApiResponse;
-import com.hieucoder.coderlo.dto.respone.PermissionResponse;
+import com.hieucoder.coderlo.dto.response.ApiResponse;
+import com.hieucoder.coderlo.dto.response.PermissionResponse;
 import com.hieucoder.coderlo.service.PermissionService;
 
 import lombok.AccessLevel;

@@ -7,7 +7,7 @@ import org.mapstruct.MappingTarget;
 
 import com.hieucoder.coderlo.dto.request.UserCreationRequest;
 import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
-import com.hieucoder.coderlo.dto.respone.UserResponse;
+import com.hieucoder.coderlo.dto.response.UserResponse;
 import com.hieucoder.coderlo.entity.User;
 
 @Mapper(componentModel = "spring")

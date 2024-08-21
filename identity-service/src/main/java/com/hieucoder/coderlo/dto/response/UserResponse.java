@@ -1,4 +1,4 @@
-package com.hieucoder.coderlo.dto.respone;
+package com.hieucoder.coderlo.dto.response;
 
 import java.util.Date;
 import java.util.Set;

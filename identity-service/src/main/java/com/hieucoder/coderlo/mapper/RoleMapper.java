@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.hieucoder.coderlo.dto.request.RoleRequest;
-import com.hieucoder.coderlo.dto.respone.RoleResponse;
+import com.hieucoder.coderlo.dto.response.RoleResponse;
 import com.hieucoder.coderlo.entity.Permission;
 import com.hieucoder.coderlo.entity.Role;
 

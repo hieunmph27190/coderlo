@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.hieucoder.coderlo.dto.request.UserCreationRequest;
 import com.hieucoder.coderlo.dto.request.UserUpdateRequest;
-import com.hieucoder.coderlo.dto.respone.ApiResponse;
-import com.hieucoder.coderlo.dto.respone.UserResponse;
+import com.hieucoder.coderlo.dto.response.ApiResponse;
+import com.hieucoder.coderlo.dto.response.UserResponse;
 import com.hieucoder.coderlo.entity.User;
 import com.hieucoder.coderlo.mapper.UserMapper;
 import com.hieucoder.coderlo.service.UserService;
@@ -28,13 +28,22 @@ public class UserController {
     UserService userService;
     UserMapper userMapper;
 
+
+    @PostMapping("/registration")
+    public ApiResponse<UserResponse> registration(@RequestBody @Valid UserCreationRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.registration(request))
+                .build();
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("")
+    @PostMapping()
     public ApiResponse<UserResponse> create(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createRequest(request))
                 .build();
     }
+
 
     @PostAuthorize("returnObject.result.userName == authentication.name")
     @GetMapping("/self")

@@ -1,18 +1,16 @@
-package com.hieucoder.coderlo.config;
+package com.hieucoder.profile_service.configuration.security;
 
-import java.io.IOException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hieucoder.profile_service.dto.response.ApiResponse;
+import com.hieucoder.profile_service.exception.ErrorCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hieucoder.coderlo.dto.respone.ApiResponse;
-import com.hieucoder.coderlo.exception.ErrorCode;
+import java.io.IOException;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
